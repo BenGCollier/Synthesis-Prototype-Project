@@ -1,0 +1,37 @@
+# Ignore Python virtual environments
+venv/
+.env/
+ENV/
+
+# Ignore Python cache files
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Ignore VS Code settings
+.vscode/
+
+# Ignore Mac system files
+.DS_Store
+
+# Ignore log files
+*.log
+
+# Ignore Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Ignore database files if any local dbs
+*.sqlite3
+*.db
+
+# Ignore environment variable files
+.env
+
+# Ignore compiled files
+*.so
+*.dll
+*.exe
+
+# Ignore coverage reports
+htmlcov/
+.coverage
