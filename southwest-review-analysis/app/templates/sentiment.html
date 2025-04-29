@@ -1,0 +1,23 @@
+{% extends 'layout.html' %}
+
+{% block title %}Sentiment Analysis - Southwest Review Analyzer{% endblock %}
+
+{% block content %}
+    <h1>Sentiment Analysis Results</h1>
+    <table border="1" cellpadding="5">
+        <thead>
+            <tr>
+                <th>Review</th>
+                <th>Sentiment</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for review in reviews %}
+            <tr>
+                <td>{{ review['Review'] }}</td>
+                <td>{{ review['sentiment'] }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

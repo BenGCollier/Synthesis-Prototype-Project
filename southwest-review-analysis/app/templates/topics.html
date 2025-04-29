@@ -1,0 +1,12 @@
+{% extends 'layout.html' %}
+
+{% block title %}Topics - Southwest Review Analyzer{% endblock %}
+
+{% block content %}
+    <h1>Topic Modeling Results</h1>
+    <ul>
+    {% for topic in topics %}
+        <li>{{ topic }}</li>
+    {% endfor %}
+    </ul>
+{% endblock %}
