@@ -8,13 +8,6 @@ app = Flask(__name__)
 def home():
     return render_template('home.html')
 
-@app.route('/topics')
-def topics():
-    # Load topics from JSON
-    with open('southwest-review-analysis/data/topic_modeling/topics.json', 'r') as f:
-        topics = json.load(f)
-    return render_template('topics.html', topics=topics)
-
 @app.route('/sentiment')
 def sentiment():
     df = pd.read_csv('southwest-review-analysis/data/sentiment_analysis/sentiment_southwest_reviews.csv')
