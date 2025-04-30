@@ -1,0 +1,31 @@
+--Task 1
+INSERT INTO Employees (LastName, FirstName, BirthDate)
+VALUES
+("Avaya", "Bates", "1987-01-01"),
+("Don", "Bains", "1969-12-05"),
+("Mehreen", "Strong", "1994-03-06"),
+("Kayson", "Bravo", "2000-01-07");
+
+--Task 2
+UPDATE Employees
+SET BirthDate = "1968-01-30"
+wHERE EmployeeID = 1;
+
+--Task 3
+INSERT INTO Employees (FirstName, LastName, Notes)
+VALUES
+("Cooper", "Ramirez", "Has MBA and fluent in Spanish"),
+("Anna-Marie", "Prosser", "Graduated West Texas A&M"),
+("Cosmo", "Whitley", "Amarillo Chamber of Commerce");
+
+--Task 4
+UPDATE Customers
+SET Country = 'United States of America'
+WHERE Country = 'USA';
+
+--Task 5
+DELETE FROM Products 
+WHERE SupplierID = 3;
+
+DELETE FROM Suppliers 
+WHERE SupplierName = "Grandma Kelly's Homestead";
