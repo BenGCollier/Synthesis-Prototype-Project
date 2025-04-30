@@ -1,57 +1,53 @@
-# Systems Development: Skills & Knowledge Assessment
+# Networking and Cybersecurity: Skills & Knowledge Assessment
 
 ## Strengths
-- Reinforced my understanding of programming languages such as Python, SQL, JavaScript, HTML, and CSS.
-- Gained experience in web development through Django and Docker.
-- Successfully applied data engineering and data science concepts in projects.
-- Benefited from DataCamp courses to refine weak areas and expand knowledge in CIDM 6303.
-- Learned significantly from extra/advanced coursework beyond standard assignments in CIDM 6303.
+- Network analytics came easy to interpret.
+- Nessus was particularly helpful in learning about and analyzing networks.
+- Tools such as Zenmap, Wireshark, and ShieldsUP! were easy to use and effective for running scans.
+- Creating and interpreting visualizations in CIDM 6356 was straightforward.
 
 ## Weaknesses
-- Some advanced Python and SQL concepts from DataCamp were difficult to grasp initially.
-- Certain Python and SQL operators were unfamiliar and required extra practice.
-- Encountered difficulties with the Python shell and specific Django components like the admin page in CIDM 6325.
-- Using a Windows environment instead of Unix/Linux-based systems made parts of the coursework more difficult to complete in CIDM 6325.
+- Due to my inexperience in networking, some terminology was difficult to grasp.
+- I was unable to analyze a large business network with multiple devices.
+- Zenmap scans took significantly longer than expected.
+- I struggled with the Daubert Standard assignment.
 
 ## Wants/Wishes
-- Gain a deeper mastery of advanced Python and SQL operators.
-- Improve proficiency in using Django’s administration page.
-- Enhance my ability to work with Unix/Linux-based systems to adapt to diverse development environments.
+- Gain more experience with larger network environments and complex network topologies.
+- Develop a deeper understanding of cybersecurity risk assessments and penetration testing.
+- Master advanced forensic techniques for fraud detection and cybersecurity.
 
-# Systems Development: Resources & References
+# Networking and Cybersecurity: Resources & References
 
 ## Work Samples
-- CIDM 6303
-  - [Project 1](https://replit.com/@bc1046105/Project-1)
-  - [CIDM 6303 Assignments and Project 2](https://github.com/BenGCollier/CIDM-6303)
-- CIDM 6325
-  - [Assignment 0](https://github.com/BenGCollier/Assignment-0)
-  - [Assignment 1](https://github.com/BenGCollier/Assignment-1)
-  - [Assignment 2](https://github.com/BenGCollier/Assignment-2)
-  - [Final Project](https://github.com/BenGCollier/CIDM-6325-Final-Project)
+- [CIDM 6340](https://github.com/BenGCollier/CIDM-6340)
+- [CIDM 6356](https://github.com/BenGCollier/CIDM-6356)
 
 ## Knowledge Sources
 - Lecture slides & videos
 - Course lectures
 - Course textbook
-- DataCamp
 - Searching the web
+- Online security and forensic analysis resources
+- Cybersecurity and fraud detection research papers
 
 ## Summary
-With experience in Python, SQL, JavaScript, Django, and web development tools, I have a strong foundation in systems development. Through DataCamp, coursework, and projects, I’ve honed my ability to build and optimize web applications, process data, and troubleshoot technical challenges.
+My coursework in networking and cybersecurity has given me experience with network analysis, security tools, and fraud detection. Using tools like Wireshark, Zenmap, and Nessus, I learned how to assess and analyze networks for vulnerabilities. Python-based projects in steganography and fraud detection further reinforced my understanding of security concepts.
 
-# Systems Development: Integration
+# Networking and Cybersecurity: Integration
 
-## Why and How Systems Development is Integrable with Other Areas
-- Systems development supports data analytics by providing the necessary infrastructure for data collection, storage, and processing, ensuring smooth data flow for analytical applications.
-- Effective systems development ensures databases and data pipelines are structured for efficient querying and analysis.
-- Secure software development practices, authentication mechanisms, and API integrations help in maintaining the integrity of networked systems.
+## Why and How Networking and Cybersecurity is Integrable with Other Areas
+- Cybersecurity principles can be applied to data management and systems development to enhance security protocols and risk mitigation strategies.
+- Network security concepts overlap with data mining when analyzing cyber threats and vulnerabilities.
+- Ethical hacking and penetration testing techniques complement system development best practices.
 
-## How Systems Development is Integrable with Prior Work
-- Web applications in CIDM 6325 utilized Django and Python, integrating data management and web-based analytics.
-- SQL-based projects in CIDM 6303 reinforced database management skills, supporting both data analytics and system development efforts.
-- Docker experience helped in understanding deployment and scalability, crucial for modern software development.
+## How Networking and Cybersecurity is Integrable with Prior Work
+- Previous experience with Python, SQL, and web development strengthens my ability to automate cybersecurity tasks and analyze network data.
+- Understanding of data visualization helps in interpreting network traffic and identifying anomalies.
+- Familiarity with system development tools like Django, Docker, and Linux environments enhances my ability to implement secure applications.
 
 ## Integration Statement
-Systems development acts as the foundation for efficient data processing, web application functionality, and secure computing environments. By integrating software engineering with data management, analytics, and security, it ensures that technological solutions are scalable, reliable, and effective.
+Networking and cybersecurity play a crucial role in ensuring the security and integrity of data, applications, and systems. By integrating cybersecurity principles with my knowledge of system development, data mining, and management, I can build robust and secure solutions that safeguard sensitive information and prevent cyber threats.
 
+## Preparedness
+I have a solid foundation in network scanning, security assessment, and fraud detection. While some terminology and advanced concepts were initially challenging, hands-on experience with various tools helped me grasp key ideas. I feel prepared to apply these skills to real-world cybersecurity and networking tasks.
