@@ -1,0 +1,40 @@
+Lab6Data<-read.csv(file.choose(),header=T)
+dim(Lab6Data)
+head(Lab6Data)
+Lab6Data[1]<-NULL
+install.packages('dplyr') 
+library(dplyr)
+install.packages('reshape2')
+library(reshape2)
+Lab6cor<-as.matrix(cor(Lab6Data))
+Lab6cormelt<-arrange(melt(Lab6cor), -abs(value))
+Lab6cormelt
+Lab6cor [!lower.tri(Lab6cor)]<-0
+Lab6Data2<-Lab6Data [ , ! apply(Lab6cor, 2, function(x) any(abs(x) > 0.8))]
+names(Lab6Data2)
+install.packages("nnet")
+library(nnet)
+set.seed(1000)
+Lab6Net<-nnet (Phone_sale ~. , data=Lab6Data2,  size=8, maxit=10000)
+install.packages("NeuralNetTools")
+library (NeuralNetTools)
+plotnet(Lab6Net)
+
+library("e1071")
+install.packages("caret")
+library("caret")
+set.seed(123)
+smp_size <- floor (0.7 * nrow(Lab6Data2))
+train_ind <- sample(seq_len(nrow(Lab6Data2)), size = smp_size)
+train <- Lab6Data2 [train_ind, ] 
+test <- Lab6Data2[-train_ind, ]
+nrow(train)/nrow(Lab6Data2)
+LRmodel<-glm (Phone_sale ~. , family = "binomial", train)
+LRp<-predict (LRmodel, test, type="response")
+summary(LRp)
+LRpredict<-ifelse(LRp > 0.20, 1, 0)
+table(LRpredict, test[["Phone_sale"]])
+typeof(LRpredict)
+typeof(test[["Phone_sale"]])
+LRp_class<-as.factor(LRpredict)
+confusionMatrix(LRp_class, as.factor(test[["Phone_sale"]]))
