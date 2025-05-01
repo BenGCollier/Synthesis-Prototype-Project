@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+{% load course %}
+
+{% block title %}
+  Module {{ module.order|add:1 }}: {{ module.title }}
+{% endblock %}
+
+{% block content %}
+{% with course=module.course %}
+  <div class="container">
+    <h1 class="my-4">Course "{{ course.title }}"</h1>
+
+    <div class="row">
+      <div class="col-md-4">
+        <h3>Modules</h3>
+        <ul id="modules" class="list-group">
+          {% for m in course.modules.all %}
+            <li class="list-group-item d-flex justify-content-between align-items-center {% if m == module %}active{% endif %}" data-id="{{ m.id }}">
+              <a href="{% url "module_content_list" m.id %}" class="text-decoration-none">
+                <span>
+                  Module <span class="order">{{ m.order|add:1 }}</span>: {{ m.title }}
+                </span>
+              </a>
+            </li>
+          {% empty %}
+            <li class="list-group-item">No modules yet.</li>
+          {% endfor %}
+        </ul>
+        <p class="mt-3"><a href="{% url "course_module_update" course.id %}" class="btn btn-primary">Edit modules</a></p>
+      </div>
+
+      <div class="col-md-8">
+        <div class="module">
+          <h2>Module {{ module.order|add:1 }}: {{ module.title }}</h2>
+          <h3>Module contents:</h3>
+          <div id="module-contents">
+            {% for content in module.contents.all %}
+              <div class="mb-3" data-id="{{ content.id }}">
+                {% with item=content.item %}
+                  <p>{{ item }} ({{ item|model_name }})</p>
+                  <a href="{% url "module_content_update" module.id item|model_name item.id %}" class="btn btn-warning btn-sm">Edit</a>
+                  <form action="{% url "module_content_delete" content.id %}" method="post" class="d-inline-block">
+                    <input type="submit" value="Delete" class="btn btn-danger btn-sm">
+                    {% csrf_token %}
+                  </form>
+                {% endwith %}
+              </div>
+            {% empty %}
+              <p>This module has no contents yet.</p>
+            {% endfor %}
+          </div>
+
+          <h3>Add new content:</h3>
+          <ul class="list-unstyled">
+            <li><a href="{% url "module_content_create" module.id "text" %}" class="btn btn-outline-primary btn-sm">Text</a></li>
+            <li><a href="{% url "module_content_create" module.id "image" %}" class="btn btn-outline-primary btn-sm">Image</a></li>
+            <li><a href="{% url "module_content_create" module.id "video" %}" class="btn btn-outline-primary btn-sm">Video</a></li>
+            <li><a href="{% url "module_content_create" module.id "file" %}" class="btn btn-outline-primary btn-sm">File</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endwith %}
+{% endblock %}
+
+{% block include_js %}
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html5sortable/0.13.3/html5sortable.min.js"></script>
+{% endblock %}
+
+{% block domready %}
+<script>
+  var options = {
+      method: 'POST',
+      mode: 'same-origin'
+  }
+
+  const moduleOrderUrl = '{% url "module_order" %}';
+
+  sortable('#modules', {
+    forcePlaceholderSize: true,
+    placeholderClass: 'placeholder'
+  })[0].addEventListener('sortupdate', function(e) {
+
+    modulesOrder = {};
+    var modules = document.querySelectorAll('#modules li');
+    modules.forEach(function (module, index) {
+      // update module index
+      modulesOrder[module.dataset.id] = index;
+      // update index in HTML element
+      module.querySelector('.order').innerHTML = index + 1;
+    });
+
+    // add new order to the HTTP request options
+    options['body'] = JSON.stringify(modulesOrder);
+
+    // send HTTP request
+    fetch(moduleOrderUrl, options)
+  });
+
+  const contentOrderUrl = '{% url "content_order" %}';
+
+  sortable('#module-contents', {
+    forcePlaceholderSize: true,
+    placeholderClass: 'placeholder'
+  })[0].addEventListener('sortupdate', function(e) {
+
+    contentOrder = {};
+    var contents = document.querySelectorAll('#module-contents div');
+    contents.forEach(function (content, index) {
+      // update content index
+      contentOrder[content.dataset.id] = index;
+    });
+
+    // add new order to the HTTP request options
+    options['body'] = JSON.stringify(contentOrder);
+
+    // send HTTP request
+    fetch(contentOrderUrl, options)
+  });
+</script>
+{% endblock %}

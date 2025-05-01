@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block title %}
+  {% if subject %}
+    {{ subject.title }} courses
+  {% else %}
+    All courses
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+  <h1 class="mb-4">
+    {% if subject %}
+      {{ subject.title }} courses
+    {% else %}
+      All courses
+    {% endif %}
+  </h1>
+
+  <div class="row">
+    <!-- Sidebar for subjects -->
+    <div class="col-md-3 mb-4">
+      <h3 class="mb-3">Subjects</h3>
+      <ul class="list-group">
+        <li class="list-group-item {% if not subject %}active{% endif %}">
+          <a href="{% url "course_list" %}" class="text-decoration-none {% if not subject %}text-white{% endif %}">All</a>
+        </li>
+        {% for s in subjects %}
+          <li class="list-group-item {% if subject == s %}active{% endif %}">
+            <a href="{% url "course_list_subject" s.slug %}" class="text-decoration-none {% if subject == s %}text-white{% endif %}">
+              {{ s.title }}
+              <span class="badge bg-secondary ms-2">{{ s.total_courses }} course{{ s.total_courses|pluralize }}</span>
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <!-- Main content for courses -->
+    <div class="col-md-9">
+      <div class="row g-4">
+        {% for course in courses %}
+          <div class="col-md-6">
+            <div class="card shadow-sm">
+              <div class="card-body">
+                <h3 class="card-title">
+                  <a href="{% url "course_detail" course.slug %}" class="text-decoration-none">{{ course.title }}</a>
+                </h3>
+                <p class="card-text">
+                  <a href="{% url "course_list_subject" course.subject.slug %}" class="text-decoration-none">{{ course.subject }}</a>.
+                  <strong>{{ course.total_modules }}</strong> modules.
+                  Instructor: <strong>{{ course.owner.get_full_name }}</strong>
+                </p>
+              </div>
+            </div>
+          </div>
+        {% empty %}
+          <p class="text-muted">No courses are available at the moment.</p>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

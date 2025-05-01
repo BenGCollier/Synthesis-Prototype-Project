@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}My courses{% endblock %}
+
+{% block content %}
+  <div class="container mt-4">
+    <h1>My Courses</h1>
+    <div class="module mt-4">
+      {% for course in object_list %}
+        <div class="course-info card mb-4">
+          <div class="card-body">
+            <h3 class="card-title">{{ course.title }}</h3>
+            <p class="card-text">
+              <a href="{% url 'student_course_detail' course.id %}" class="btn btn-primary">
+                Access Contents
+              </a>
+            </p>
+          </div>
+        </div>
+      {% empty %}
+        <div class="alert alert-info">
+          <p>You are not enrolled in any courses yet. <a href="{% url 'course_list' %}">Browse courses</a> to enroll in a course.</p>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}

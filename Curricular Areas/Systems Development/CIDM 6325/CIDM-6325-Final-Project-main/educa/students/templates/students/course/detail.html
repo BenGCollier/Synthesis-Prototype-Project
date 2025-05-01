@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load cache %}
+
+{% block title %}
+  {{ object.title }}
+{% endblock %}
+
+{% block content %}
+  <div class="container mt-4">
+    <h1>{{ module.title }}</h1>
+    <div class="contents">
+      <h3>Modules</h3>
+      <ul id="modules" class="list-group">
+        {% for m in object.modules.all %}
+          <li class="list-group-item {% if m == module %}list-group-item-primary{% endif %}" data-id="{{ m.id }}">
+            <a href="{% url 'student_course_detail_module' object.id m.id %}" class="text-decoration-none">
+              <span>
+                Module <span class="order">{{ m.order|add:1 }}</span>
+              </span>
+              <br>
+              {{ m.title }}
+            </a>
+          </li>
+        {% empty %}
+          <li class="list-group-item">No modules yet.</li>
+        {% endfor %}
+      </ul>
+      
+      <h3 class="mt-4">
+        <a href="{% url 'chat:course_chat_room' object.id %}" class="btn btn-info">
+          Course Chat Room
+        </a>
+      </h3>
+
+      <h3 class="view-submissions mt-3">
+        <a href="{% url 'student_portfolio_list' object.id %}" class="btn btn-secondary">
+          View Submissions
+        </a>
+      </h3>
+    </div>
+
+    <div class="module mt-4">
+      {% cache 600 module_contents module %}
+        {% for content in module.contents.all %}
+          {% with item=content.item %}
+            <h2>{{ item.title }}</h2>
+            {{ item.render }}
+          {% endwith %}
+        {% endfor %}
+      {% endcache %}
+    </div>
+  </div>
+{% endblock %}

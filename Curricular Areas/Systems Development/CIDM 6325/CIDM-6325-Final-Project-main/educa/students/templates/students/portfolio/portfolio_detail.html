@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Portfolio Entry: {{ object.title }}{% endblock %}
+
+{% block content %}
+  <div class="container mt-4 portfolio-detail">
+    <h1 class="mb-4">{{ object.title }}</h1>
+    <p>{{ object.description }}</p>
+    
+    {% if object.file %}
+      <a href="{{ object.file.url }}" class="btn btn-primary mb-4">Download File</a>
+    {% endif %}
+    
+    <div class="row">
+      <div class="col-md-6">
+        <p><strong>Course:</strong> {{ object.course.title }}</p>
+      </div>
+      <div class="col-md-6">
+        <p><strong>Uploaded by:</strong> {{ object.student.get_full_name }}</p>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="col-md-6">
+        <p><strong>Created:</strong> {{ object.created_at|date:"m/d/Y H:i A" }}</p>
+      </div>
+      <div class="col-md-6">
+        <p><strong>Updated:</strong> {{ object.updated_at|date:"m/d/Y H:i A" }}</p>
+      </div>
+    </div>
+  </div>
+{% endblock %}
