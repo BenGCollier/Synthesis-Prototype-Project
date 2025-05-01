@@ -1,0 +1,16 @@
+{% load thumbnail %}
+{% for recipe_image in recipe_images %}
+  <div class="image">
+    <a href="{{ recipe_image.get_absolute_url }}">
+      {% thumbnail recipe_image.recipe_image 300x300 crop="smart" as im %}
+      <a href="{{ recipe_image.get_absolute_url }}">
+        <img src="{{ im.url }}">
+      </a>
+    </a>
+    <div class="info">
+      <a href="{{ recipe_image.get_absolute_url }}" class="title">
+        {{ recipe_image.title }}
+      </a>
+    </div>
+  </div>
+{% endfor %}
