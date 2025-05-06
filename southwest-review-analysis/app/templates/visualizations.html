@@ -10,4 +10,15 @@
 
     <h2>Word Cloud</h2>
     <img src="data:image/png;base64,{{ wordcloud_url }}" alt="Word Cloud" style="max-width: 100%; height: auto;">
+
+    <h2>Most Frequent Words</h2>
+    <img src="data:image/png;base64,{{ frequent_words_url }}" alt="Word Frequency Bar Chart" style="max-width: 100%; height: auto;">
+
+    <h2>Sentiment Distribution by Review Length</h2>
+    <img src="data:image/png;base64,{{ sentiment_length_url }}" alt="Sentiment Distribution by Review Length" style="max-width: 100%; height: auto;">
+    
+    <h2>Sentiment Breakdown by Review Length</h2>
+    <img src="data:image/png;base64,{{ sentiment_box_url }}" alt="Sentiment Breakdown by Review Length" style="max-width: 100%; height: auto;">
+
 {% endblock %}
+

@@ -1,0 +1,56 @@
+{% extends 'layout.html' %}
+
+{% block title %}Southwest Review Analyzer - Home{% endblock %}
+
+{% block content %}
+    <h1>Welcome to the Southwest Airlines Review Analyzer</h1>
+    <p>This tool scrapes Trustpilot reviews for Southwest Airlines, cleans the text, performs sentiment analysis, and visualizes the results. 
+        Enter your desired amount of reviews to scrape, then press update and you will be redirected to the sentiment analysis page.
+    </p>
+
+    <form id="updateForm">
+        <label for="num_reviews">Number of reviews to analyze:</label>
+        <input type="number" name="num_reviews" id="num_reviews" min="1" value="100" required>
+        <br><br>
+        <button id="updateButton" type="submit" style="padding: 10px 20px; font-size: 1em;">
+            Update Reviews and Analysis
+        </button>
+    
+        <div id="spinner" style="display: none; margin-top: 10px;">
+            <p><strong>Processing... Please wait.</strong></p>
+            <img src="https://i.gifer.com/ZZ5H.gif" alt="Loading..." width="50">
+        </div>
+    </form>
+    
+    <div id="result"></div>
+    
+    <script>
+        document.getElementById("updateForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevent full page reload
+            const button = document.getElementById("updateButton");
+            const spinner = document.getElementById("spinner");
+    
+            button.disabled = true;
+            spinner.style.display = "block";
+    
+            const formData = new FormData(this);
+    
+            fetch("/update-data", {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.text())
+            .then(html => {
+                // Replace full page content with returned HTML (sentiment.html)
+                document.open();
+                document.write(html);
+                document.close();
+            })
+            .catch(error => {
+                alert("Error: " + error);
+                spinner.style.display = "none";
+                button.disabled = false;
+            });
+        });
+    </script>
+{% endblock %}

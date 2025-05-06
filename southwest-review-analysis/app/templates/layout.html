@@ -3,10 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}Southwest Review Analyzer{% endblock %}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
+        body {
+            font-family: 'Inter', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('https://www.reuters.com/resizer/v2/4VLDRPLRMRL67BTXO2S56HBECM.jpg?auth=b42c0dec18955b6eb40c6bc314cfead3cf41e8c12958b1573f9eb995fda67a55&width=3253&quality=80');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-color: rgba(0, 0, 0, 0.8); /* Fallback for transparency */
+        }
+
+        .content {
+            background-color: rgba(0, 0, 0, 0.75);  /* Dark overlay for text readability */
+            padding: 2em;
+            border-radius: 10px;
+            color: white;
+        }
+
         .navbar {
-            background-color: #0074D9;
+            background: rgba(0, 0, 0, 0.8);
             padding: 1em;
+            display: flex;
+            justify-content: space-around;
+            border-bottom: 3px solid white;
         }
         .navbar a {
             color: white;
@@ -14,21 +37,72 @@
             text-decoration: none;
             font-weight: bold;
         }
+    
         .navbar a:hover {
             text-decoration: underline;
+            color: #1e90ff;
         }
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
+    
         .content {
             padding: 2em;
         }
+    
+        input, select, textarea {
+            background-color: #1e1e1e;
+            color: #f0f0f0;
+            border: 1px solid #444;
+            padding: 0.5em;
+            border-radius: 4px;
+        }
+    
+        button {
+            background-color: #1e90ff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    
+        button:hover {
+            background-color: #3399ff;
+        }
+    
+        button[disabled] {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+    
+        #spinner {
+            display: none;
+            text-align: center;
+        }
+    
+        a {
+            color: #1e90ff;
+        }
+    
+        a:hover {
+            color: #63b3ed;
+        }
+        .navbar-stripe {
+            height: 5px;
+            background: linear-gradient(to right, #007bff 33%, #ffc107 33% 66%, #dc3545 66%);
+        }
+        tr.even-row {
+            background-color: #2c2c2c;
+            color: #f0f0f0;
+        }
+        tr.odd-row {
+            background-color: #1e1e1e;
+            color: #f0f0f0;
+        }
     </style>
+    
 </head>
 <body>
+    <div class="navbar-stripe"></div>
     <div class="navbar">
+        <a href="/">Home</a>
         <a href="/sentiment">Sentiment Analysis</a>
         <a href="/visualizations">Visualizations</a>
     </div>

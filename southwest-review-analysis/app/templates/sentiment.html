@@ -3,45 +3,81 @@
 {% block title %}Sentiment Analysis - Southwest Review Analyzer{% endblock %}
 
 {% block content %}
-    <h1>Sentiment Analysis Results</h1>
+    <h1 style="font-size: 2em; font-weight: bold; margin-bottom: 1em; border-bottom: 2px solid #1e90ff; padding-bottom: 0.5em;">Sentiment Analysis Results</h1>
 
-    <form method="get" action="/sentiment">
-        <label for="sort">Sort by:</label>
-        <select name="sort" id="sort">
-            <option value="newest" {% if sort == 'newest' %}selected{% endif %}>Newest to Oldest</option>
-            <option value="oldest" {% if sort == 'oldest' %}selected{% endif %}>Oldest to Newest</option>
-        </select>
+    {% if message %}
+        <div style="background-color: #1e90ff; color: white; padding: 1em; border-radius: 5px; margin-bottom: 1em;">
+            {{ message }}
+        </div>
+    {% endif %}
 
-        <label for="sentiment_filter">Filter by Sentiment:</label>
-        <select name="sentiment_filter" id="sentiment_filter">
-            <option value="all" {% if sentiment_filter == 'all' %}selected{% endif %}>All</option>
-            <option value="very positive" {% if sentiment_filter == 'very positive' %}selected{% endif %}>Very Positive</option>
-            <option value="positive" {% if sentiment_filter == 'positive' %}selected{% endif %}>Positive</option>
-            <option value="neutral" {% if sentiment_filter == 'neutral' %}selected{% endif %}>Neutral</option>
-            <option value="negative" {% if sentiment_filter == 'negative' %}selected{% endif %}>Negative</option>
-            <option value="very negative" {% if sentiment_filter == 'very negative' %}selected{% endif %}>Very Negative</option>
-        </select>
+    <form method="get" action="/sentiment" style="display: flex; flex-wrap: wrap; gap: 1em; align-items: center; background-color: rgba(255,255,255,0.05); padding: 1em; border-radius: 8px; margin-bottom: 1em;">
+        <div>
+            <label for="sort" style="font-weight: 600;">Sort by:</label>
+            <select name="sort" id="sort">
+                <option value="newest" {% if sort == 'newest' %}selected{% endif %}>Newest to Oldest</option>
+                <option value="oldest" {% if sort == 'oldest' %}selected{% endif %}>Oldest to Newest</option>
+            </select>
+        </div>
 
-        <button type="submit">Apply</button>
+        <div>
+            <label for="sentiment_filter" style="font-weight: 600;">Filter by Sentiment:</label>
+            <select name="sentiment_filter" id="sentiment_filter">
+                <option value="all" {% if sentiment_filter == 'all' %}selected{% endif %}>All</option>
+                <option value="very positive" {% if sentiment_filter == 'very positive' %}selected{% endif %}>Very Positive</option>
+                <option value="positive" {% if sentiment_filter == 'positive' %}selected{% endif %}>Positive</option>
+                <option value="neutral" {% if sentiment_filter == 'neutral' %}selected{% endif %}>Neutral</option>
+                <option value="negative" {% if sentiment_filter == 'negative' %}selected{% endif %}>Negative</option>
+                <option value="very negative" {% if sentiment_filter == 'very negative' %}selected{% endif %}>Very Negative</option>
+            </select>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 0.5em;">
+            <label for="per_page" style="font-weight: 600;">Display:</label>
+            <select name="per_page" id="per_page">
+                <option value="25" {% if per_page == 25 %}selected{% endif %}>25</option>
+                <option value="50" {% if per_page == 50 %}selected{% endif %}>50</option>
+                <option value="100" {% if per_page == 100 %}selected{% endif %}>100</option>
+            </select>
+            <span>per page</span>
+        </div>
+
+        <input type="hidden" name="page" value="1">
+        <div style="margin-left: auto;">
+            <button type="submit" style="padding: 0.5em 1.5em; font-weight: bold; background-color: #1e90ff; color: white; border: none; border-radius: 4px; cursor: pointer;">
+                Apply
+            </button>
+        </div>
+        
     </form>
 
-    <br>
-
-    <table border="1" cellpadding="5">
+    <table style="width: 100%; border-collapse: collapse; margin-top: 1em;">
         <thead>
-            <tr>
-                <th>Review</th>
-                <th>Sentiment</th>
+            <tr style="background-color: #1e90ff; color: white;">
+                <th style="padding: 0.75em; text-align: left;">Review</th>
+                <th style="padding: 0.75em; text-align: left;">Sentiment</th>
             </tr>
         </thead>
         <tbody>
         {% for review in reviews %}
-            <tr>
-                <td>{{ review['Review'] }}</td>
-                <td>{{ review['sentiment'] }}</td>
+        <tr class="{{ 'even-row' if loop.index0 % 2 == 0 else 'odd-row' }}">
+                <td style="padding: 0.75em;">{{ review['Review'] }}</td>
+                <td style="padding: 0.75em;">{{ review['sentiment'] }}</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
+
+    <div style="margin-top: 1.5em;">
+        <p style="font-weight: bold;">Page {{ page }} of {{ total_pages }}</p>
+        <div style="display: flex; gap: 1em;">
+            {% if page > 1 %}
+                <a href="{{ url_for('sentiment', sort=sort, sentiment_filter=sentiment_filter, per_page=per_page, page=page-1) }}" style="color: #1e90ff;">&laquo; Previous</a>
+            {% endif %}
+            {% if page < total_pages %}
+                <a href="{{ url_for('sentiment', sort=sort, sentiment_filter=sentiment_filter, per_page=per_page, page=page+1) }}" style="color: #1e90ff;">Next &raquo;</a>
+            {% endif %}
+        </div>
+    </div>
 {% endblock %}
 
