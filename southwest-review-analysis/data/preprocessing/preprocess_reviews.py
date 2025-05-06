@@ -1,3 +1,4 @@
+import os
 import pandas as pd
 import re
 import nltk
@@ -31,6 +32,6 @@ def preprocess_reviews(input_file, output_file):
     print(f"Cleaned data saved to {output_file}")
 
 if __name__ == "__main__":
-    input_path = "southwest-review-analysis/data/raw_reviews/southwest_reviews.csv"
-    output_path = "southwest-review-analysis/data/cleaned_reviews/southwest_reviews_cleaned.csv"
+    input_path = "data/raw_reviews/southwest_reviews.csv"
+    output_path = "data/cleaned_reviews/southwest_reviews_cleaned.csv"
     preprocess_reviews(input_path, output_path)

@@ -1,11 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Sentiment Chart</title>
-</head>
-<body>
+{% extends 'layout.html' %}
+
+{% block title %}Sentiment Chart - Southwest Review Analyzer{% endblock %}
+
+{% block content %}
     <h1>Sentiment Distribution</h1>
     <img src="data:image/png;base64,{{ plot_url }}" alt="Sentiment Chart">
-</body>
-</html>
+{% endblock %}

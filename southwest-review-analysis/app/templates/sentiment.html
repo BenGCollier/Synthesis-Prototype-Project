@@ -4,6 +4,29 @@
 
 {% block content %}
     <h1>Sentiment Analysis Results</h1>
+
+    <form method="get" action="/sentiment">
+        <label for="sort">Sort by:</label>
+        <select name="sort" id="sort">
+            <option value="newest" {% if sort == 'newest' %}selected{% endif %}>Newest to Oldest</option>
+            <option value="oldest" {% if sort == 'oldest' %}selected{% endif %}>Oldest to Newest</option>
+        </select>
+
+        <label for="sentiment_filter">Filter by Sentiment:</label>
+        <select name="sentiment_filter" id="sentiment_filter">
+            <option value="all" {% if sentiment_filter == 'all' %}selected{% endif %}>All</option>
+            <option value="very positive" {% if sentiment_filter == 'very positive' %}selected{% endif %}>Very Positive</option>
+            <option value="positive" {% if sentiment_filter == 'positive' %}selected{% endif %}>Positive</option>
+            <option value="neutral" {% if sentiment_filter == 'neutral' %}selected{% endif %}>Neutral</option>
+            <option value="negative" {% if sentiment_filter == 'negative' %}selected{% endif %}>Negative</option>
+            <option value="very negative" {% if sentiment_filter == 'very negative' %}selected{% endif %}>Very Negative</option>
+        </select>
+
+        <button type="submit">Apply</button>
+    </form>
+
+    <br>
+
     <table border="1" cellpadding="5">
         <thead>
             <tr>
@@ -21,3 +44,4 @@
         </tbody>
     </table>
 {% endblock %}
+

@@ -1,0 +1,13 @@
+{% extends 'layout.html' %}
+
+{% block title %}Visualizations - Southwest Review Analyzer{% endblock %}
+
+{% block content %}
+    <h1>Visual Insights from Reviews</h1>
+
+    <h2>Sentiment Chart</h2>
+    <img src="data:image/png;base64,{{ chart_url }}" alt="Sentiment Chart" style="max-width: 100%; height: auto;">
+
+    <h2>Word Cloud</h2>
+    <img src="data:image/png;base64,{{ wordcloud_url }}" alt="Word Cloud" style="max-width: 100%; height: auto;">
+{% endblock %}
