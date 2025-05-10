@@ -3,7 +3,9 @@
 {% block title %}Sentiment Analysis - Southwest Review Analyzer{% endblock %}
 
 {% block content %}
-    <h1 style="font-size: 2em; font-weight: bold; margin-bottom: 1em; border-bottom: 2px solid #1e90ff; padding-bottom: 0.5em;">Sentiment Analysis Results</h1>
+    <h1 style="font-size: 2em; font-weight: bold; margin-bottom: 1em; border-bottom: 2px solid #1e90ff; padding-bottom: 0.5em;">
+        Sentiment Analysis Results
+    </h1>
 
     {% if message %}
         <div style="background-color: #1e90ff; color: white; padding: 1em; border-radius: 5px; margin-bottom: 1em;">
@@ -48,8 +50,33 @@
                 Apply
             </button>
         </div>
-        
     </form>
+
+        {% if total_pages > 1 %}
+    <form class="pagination" method="get" action="{{ url_for('sentiment') }}">
+        <p style="font-weight: bold;">Page {{ page }} of {{ total_pages }}</p>
+        <div class="pagination-buttons">
+            {% if page > 1 %}
+                <a href="{{ url_for('sentiment', sort=sort, sentiment_filter=sentiment_filter, per_page=per_page, page=1) }}">« First</a>
+                <a href="{{ url_for('sentiment', sort=sort, sentiment_filter=sentiment_filter, per_page=per_page, page=page-1) }}">‹ Prev</a>
+            {% endif %}
+
+            <label for="page-input" style="display: flex; align-items: center; gap: 0.5em;">
+                Go to page:
+                <input type="number" min="1" max="{{ total_pages }}" name="page" id="page-input" value="{{ page }}" style="width: 4em;">
+                <input type="hidden" name="sort" value="{{ sort }}">
+                <input type="hidden" name="sentiment_filter" value="{{ sentiment_filter }}">
+                <input type="hidden" name="per_page" value="{{ per_page }}">
+                <button type="submit" style="padding: 0.4em 1em; background-color: #1e90ff; color: white; border: none; border-radius: 4px;">Go</button>
+            </label>
+
+            {% if page < total_pages %}
+                <a href="{{ url_for('sentiment', sort=sort, sentiment_filter=sentiment_filter, per_page=per_page, page=page+1) }}">Next ›</a>
+                <a href="{{ url_for('sentiment', sort=sort, sentiment_filter=sentiment_filter, per_page=per_page, page=total_pages) }}">Last »</a>
+            {% endif %}
+        </div>
+    </form>
+    {% endif %}
 
     <table style="width: 100%; border-collapse: collapse; margin-top: 1em;">
         <thead>
@@ -61,23 +88,37 @@
         <tbody>
         {% for review in reviews %}
         <tr class="{{ 'even-row' if loop.index0 % 2 == 0 else 'odd-row' }}">
-                <td style="padding: 0.75em;">{{ review['Review'] }}</td>
-                <td style="padding: 0.75em;">{{ review['sentiment'] }}</td>
-            </tr>
+            <td style="padding: 0.75em;">{{ review['Review'] }}</td>
+            <td style="padding: 0.75em;">{{ review['sentiment'] }}</td>
+        </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <div style="margin-top: 1.5em;">
+    {% if total_pages > 1 %}
+    <form class="pagination" method="get" action="{{ url_for('sentiment') }}" style="margin-top: 2em;">
         <p style="font-weight: bold;">Page {{ page }} of {{ total_pages }}</p>
-        <div style="display: flex; gap: 1em;">
+        <div class="pagination-buttons">
             {% if page > 1 %}
-                <a href="{{ url_for('sentiment', sort=sort, sentiment_filter=sentiment_filter, per_page=per_page, page=page-1) }}" style="color: #1e90ff;">&laquo; Previous</a>
+                <a href="{{ url_for('sentiment', sort=sort, sentiment_filter=sentiment_filter, per_page=per_page, page=1) }}">« First</a>
+                <a href="{{ url_for('sentiment', sort=sort, sentiment_filter=sentiment_filter, per_page=per_page, page=page-1) }}">‹ Prev</a>
             {% endif %}
+
+            <label for="page-input-bottom" style="display: flex; align-items: center; gap: 0.5em;">
+                Go to page:
+                <input type="number" min="1" max="{{ total_pages }}" name="page" id="page-input-bottom" value="{{ page }}" style="width: 4em;">
+                <input type="hidden" name="sort" value="{{ sort }}">
+                <input type="hidden" name="sentiment_filter" value="{{ sentiment_filter }}">
+                <input type="hidden" name="per_page" value="{{ per_page }}">
+                <button type="submit" style="padding: 0.4em 1em; background-color: #1e90ff; color: white; border: none; border-radius: 4px;">Go</button>
+            </label>
+
             {% if page < total_pages %}
-                <a href="{{ url_for('sentiment', sort=sort, sentiment_filter=sentiment_filter, per_page=per_page, page=page+1) }}" style="color: #1e90ff;">Next &raquo;</a>
+                <a href="{{ url_for('sentiment', sort=sort, sentiment_filter=sentiment_filter, per_page=per_page, page=page+1) }}">Next ›</a>
+                <a href="{{ url_for('sentiment', sort=sort, sentiment_filter=sentiment_filter, per_page=per_page, page=total_pages) }}">Last »</a>
             {% endif %}
         </div>
-    </div>
-{% endblock %}
+    </form>
+    {% endif %}
 
+{% endblock %}
